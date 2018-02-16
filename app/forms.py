@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, SubmitField, RadioField, TextAreaField
+from wtforms import StringField, BooleanField, SubmitField, RadioField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, Required
 
 class RegForm(FlaskForm):
@@ -23,4 +23,11 @@ class RegSwagForm(FlaskForm):
     gambina = BooleanField('Iso G (+9,83 € hintaan)')
     avec = StringField('Avec / Pöytätoive (avec ilmoittautuu erikseen)')
     free = TextAreaField('Vapaa sana')
+    submit = SubmitField('Ilmoittaudu')
+
+class KMPForm(FlaskForm):
+    name = StringField('Nimi', validators=[DataRequired()])
+    email = StringField('Sähköposti', validators=[Email()])
+    representative = SelectField('Mistä olet / Kuka olet?', choices=[('otit', 'OTiT'), ('sik', 'SIK'), ('master', 'kulttuuri/excursiomestari')])
+    place = SelectField('Mistä nouset kyytiin?', choices=[('lmaa','Linnanmaa'), ('tuira','Tuira'),('keskusta','Linja-autoasema')])
     submit = SubmitField('Ilmoittaudu')

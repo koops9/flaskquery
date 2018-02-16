@@ -12,15 +12,8 @@
         {{ form.hidden_tag() }}
         {{ wtf.form_field(form.name) }}
         {{ wtf.form_field(form.email) }}
-        {{ wtf.form_field(form.greeting) }}
-        {{ wtf.form_field(form.food) }}
-        {{ wtf.form_field(form.alcohol) }}
-        {% for e in form.alcohol.errors %}
-            <p class="text-danger">{{ e }}</p>
-        {% endfor %}
-        {{ wtf.form_field(form.gambina) }}
-        {{ wtf.form_field(form.avec) }}
-        {{ wtf.form_field(form.free) }}
+        {{ wtf.form_field(form.representative) }}
+        {{ wtf.form_field(form.place) }}
         {{ wtf.form_field(form.submit) }}
     </form>
     {% elif nowtime < starttime %}
