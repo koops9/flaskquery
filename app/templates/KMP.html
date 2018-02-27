@@ -9,9 +9,12 @@
             <p> Maailma muuttuu. Pian on vain valloittajia, ja valloitettavia…</p>
 
     <p>Kaakkois-Suomesta on tullut tieto, että viiden Tietoteekkariheimon on keräännyttävä seuraamaan ja osallistumaan perinteiseen rituaalitaisteluun, TiTeenien taistoihin. Tänä vuonna nämä taistot pidetään lappeen Rannassa. 
-    Oulun muuten syrjäinen heimo lähtee sinne esittämään haasteen ja tulemaan kruunatuksi voittajaksi. Tässä ei kuitenkaan ole läheskään kaikki, sillä kyseessä on pääasiallisesti myös perinteinen OTiTin ja SIKin yhteinen KotiMaanPitkä eli KMP! Excubussi! Excumusaa! Yritysvierailu! Ulkopaikkakunta! 
+    Oulun muuten syrjäinen heimo lähtee sinne esittämään haasteen ja tulemaan kruunatuksi voittajaksi. </p>
+    <p> Tässä ei kuitenkaan ole läheskään kaikki, sillä kyseessä on pääasiallisesti myös perinteinen OTiTin ja SIKin yhteinen KotiMaanPitkä eli KMP! Excubussi! Excumusaa! Yritysvierailu! Ulkopaikkakunta! 
     Nousemme bussiin aikaisin perjantaiaamuna ja lähdemme ajamaan lappeen Rantaan, jossa nukumme kaksi yötä. OTiT menee TiTeeneihin ja SIK menee pilaamaan jotain muuta sillä aikaa. Paluumatka on sunnuntaina, ja takaisin Oulussa ollaan illalla. Päivämäärät reissulle ovat siis 16.-18.3.</p>
     <p>Älkää siis jäätykö vaan ilmotkaa heti kun ilmo aukeaa.</p>
+    <p>Matka kustantaa ilmoittautujille 30€. Lisätietoa ja maksuohjeet tulevat ilmoittautujille ilmoittautumisen sulkeuduttua. Ilmo sulkeutuu 7.3 klo 12.00</p>
+    
 
         </div>
     {% if starttime < nowtime < endtime %}
@@ -29,6 +32,37 @@
         <p>Ilmoittautuminen on päättynyt</p>
     {% endif %}
 
+    
+        {% if otit or sik or muu %}
+      <h2>Ilmoittautuneet: </h2>
+      <div class="guildlist row center">
+        {% for guild in guilds %}
+          <div class="guild col-md-4">
+            <h3>{{ guild.name }}</h3>
+            <p>{{ guild.submissions|length }}/{{ guild.quota }}</p>
+            {% if guild.submissions %}
+              <ol>
+                {% for sub in guild.submissions %}
+                  <li>
+                    {{ sub.name[:30] }}
+                    {% if loop.index > guild.quota %}
+                      (varalla)
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ol>
+            {% else %}
+              <em>Ei ketään {%  if guild.name=='muu' %}:){% else %}:({% endif %}</em>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h2>Ei ilmoittautuneita!</h2>
+    {% endif %}
+    
+    
+    <!--
     <h3>Ilmoittautuneet: {{ count }}/{{ limit }}</h3>
     {% for partisipant in partisipants  %}
         <p>{{ partisipant.name[:30] }} - {{ partisipant.representative[:50] }}
@@ -36,6 +70,17 @@
              (varasijalla)
         {% endif %}
         </p>
-    {% endfor %}
+    {% endfor %} -->
     </div>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+

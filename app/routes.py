@@ -17,6 +17,19 @@ def kmpilmo():
 
     partisipants = KMP.query.all()
     count =KMP.query.count()
+    otit = KMP.query.filter_by(representative='OTiT').all()
+    sik = KMP.query.filter_by(representative='SIK').all()
+    
+    guilds = [
+        {'name': 'OTiT',
+         'quota': 22,
+         'submissions': otit},
+        {'name': 'SIK',
+         'quota': 23,
+         'submissions': sik},
+    ]
+    
+    
 
     if form.validate_on_submit() and count <= maxlimit:
         flash('Kiitos ilmoittautumisestasi')
@@ -28,17 +41,20 @@ def kmpilmo():
         )
         db.session.add(sub)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('kmpilmo')) #this is the fucktion name
     elif form.is_submitted() and count > maxlimit:
         flash('Ilmoittautuminen on täynnä')
-    return render_template('ilmo.html', 
+    return render_template('KMP.html', 
                         title='KMP 2018 ilmoittautuminen',
                         partisipants=partisipants, 
                         count=count, 
                         starttime=starttime, 
                         endtime=endtime, 
                         nowtime=nowtime, 
-                        limit=limit, 
+                        limit=limit,
+                        guilds=guilds,
+                        otit=otit,
+                        sik=sik,
                         form=form)
 
     
@@ -71,7 +87,7 @@ def humusitsit():
         )
         db.session.add(sub)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('/humusitsit'))
     elif form.is_submitted() and count > maxlimit:
         flash('Ilmoittautuminen on täynnä')
     return render_template('ilmo.html', title='Humanöörisitsit 2018 ilmoittautuminen', partisipants=partisipants, count=count, starttime=starttime, endtime=endtime, nowtime=nowtime, limit=limit, form=form)
