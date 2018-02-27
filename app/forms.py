@@ -37,8 +37,7 @@ class KMPForm(FlaskForm):
     email = StringField('Sähköposti', validators=[Email()])
     representative = SelectField('Kilta', 
                                 choices=[('OTiT', 'OTiT'), 
-                                ('SIK', 'SIK'), 
-                                ('Tärkeä_henkilö', 'kulttuuriministeri/excursiomestari/tai muu etuoikeutettu')])
+                                ('SIK', 'SIK')])
     place = SelectField('Mistä nouset kyytiin?', 
                         choices=[('Linnanmaa','Linnanmaa'), 
                                 ('Tuira','Tuira'),
