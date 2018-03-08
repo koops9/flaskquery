@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SubmitField, RadioField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, Required
+from wtforms import validators
 
 class RegForm(FlaskForm):
     name = StringField('Nimi', validators=[DataRequired()])
@@ -32,6 +33,27 @@ class HumuForm(FlaskForm):
     free = TextAreaField('Vapaa sana')
     submit = SubmitField('Ilmoittaudu')
 
+class OKSForm(FlaskForm):
+    name = StringField('Nimi', validators=[DataRequired()])
+    email = StringField('Sähköposti', validators=[Email()])
+    representative = SelectField('Edustaja', 
+                                choices=[
+                                ('OTiT', 'OTiT'), 
+                                ('SIK', 'SIK'),
+                                ('Blanko', 'Blanko'),
+                                ('Henkilökunta', 'Henkilökunta')])
+    table = BooleanField('En osallistu sitseille')
+    discussion = TextAreaField('Opetukseen liittyvä aihe/aiheet joista haluaisit seminaarissa keskustella:')
+    food = StringField('Erityisruokavalio, (esimerkiksi "kasvis" tai "ei herneitä")')
+    alcohol = BooleanField('Alkoholiton')
+    drink = SelectField('Mieto juoma', 
+                        choices=(['Olut', 'Olut'],
+                                 ['Siideri', 'Siideri']))
+    wine = SelectField('Viini',
+                       choices=(['Valkoviini', 'Valkoviini'],
+                                ['Punaviini', 'Punaviini']))
+    submit = SubmitField('Ilmoittaudu')
+    
 class KMPForm(FlaskForm):
     name = StringField('Nimi', validators=[DataRequired()])
     email = StringField('Sähköposti', validators=[Email()])

@@ -1,0 +1,76 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "headers.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ title }}</h1>
+
+    <p>Tervetuloa tiistaina 3.4.2018 klo 17.00 Teekkaritalolla järjestettävään Tieto- ja sähkötekniikan tiedekunnan opetuksenkehittämisseminaariin ja sitä seuraavaan sitsityyliseen illanviettoon. </p>
+    <p>Seminaarissa puheenaiheina ovat ajankohtaiset teemat Tieto- ja sähkötekniikan tiedekunnan opetukseen liittyen. Aiheiden pohjalta tarkoituksena on kehittää opetusta sekä opiskelijoiden että tiedekunnan henkilöstön voimin. Näin ollen Tieto- ja sähkötekniikan koulutusohjelmien opiskelijat ja henkilökunta ovat erittäin lämpimästi tervetulleita pohtimaan opetuksen kehittämistä! :) </p>
+        </div>
+        
+    {% if starttime < nowtime < endtime %}
+    <form class="form form-horizontal" method="post" role="form">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.name) }}
+        {{ wtf.form_field(form.email) }}
+        {{ wtf.form_field(form.representative) }}
+        {{ wtf.form_field(form.discussion) }}
+        {{ wtf.form_field(form.table) }}
+        {{ wtf.form_field(form.alcohol) }}
+        {{ wtf.form_field(form.drink) }}
+        {{ wtf.form_field(form.wine) }}
+        {{ wtf.form_field(form.food) }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
+    {% elif nowtime < starttime %}
+        <p>Ilmoittautuminen aukeaa {{ starttime }}</p>
+    {% else %}
+        <p>Ilmoittautuminen on päättynyt</p>
+    {% endif %}
+
+    
+        {% if otit or sik or blanko or hnk or muu %}
+      <h2>Ilmoittautuneet: </h2>
+      <div class="guildlist row center">
+        {% for guild in guilds %}
+          <div class="guild col-md-4">
+            <h3>{{ guild.name }}</h3>
+            <p>{{ guild.submissions|length }}/{{ guild.quota }}</p>
+            {% if guild.submissions %}
+              <ol>
+                {% for sub in guild.submissions %}
+                  <li>
+                    {{ sub.name[:30] }}
+                    {% if loop.index > guild.quota %}
+                      (varalla)
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ol>
+            {% else %}
+              <em>Ei ketään {%  if guild.name=='muu' %}:){% else %}:({% endif %}</em>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h2>Ei ilmoittautuneita!</h2>
+    {% endif %}
+    
+    
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
