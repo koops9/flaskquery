@@ -65,3 +65,18 @@ class KMPForm(FlaskForm):
                                 ('Tuira','Tuira'),
                                 ('Keskusta','Linja-autoasema')])
     submit = SubmitField('Ilmoittaudu')
+    
+class FucuForm(FlaskForm):
+    name = StringField('Nimi', validators=[DataRequired()])
+    email = StringField('Sähköposti', validators=[Email()])
+    phone = StringField('Puhelinnumero', validators=[DataRequired()])
+    representative = SelectField('Olen', 
+                                choices=[('Fuksi', 'Fuksi'),('Hallituslainen', 'Hallituslainen'),('PRO', 'PRO')])
+    representativelate = SelectField('Olen', 
+                                choices=[('Fuksi', 'Fuksi'),('Hallituslainen', 'Hallituslainen'),('PRO', 'PRO'), 
+                                ('Muu kiltalainen', 'Teekkari')])
+    place = SelectField('Mistä nouset kyytiin?', 
+                        choices=[('Oulun yliopisto','Oulun yliopisto'), 
+                                ('Tuira','Tuira'),
+                                ('Keskusta','Oulun Linja-autoasema')])
+    submit = SubmitField('Ilmoittaudu')

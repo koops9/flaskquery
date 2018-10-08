@@ -1,8 +1,65 @@
 from flask import render_template, flash, redirect, url_for
 from app import app, db
-from app.forms import HumuForm, KMPForm, OKSForm
-from .models import Humu, KMP, OKS
+from app.forms import HumuForm, KMPForm, OKSForm, FucuForm
+from .models import Humu, KMP, OKS, Fucu
 from datetime import datetime
+
+@app.route('/fucu2018', methods=['GET', 'POST'])
+def fucuilmo():
+    form = FucuForm()
+
+    starttime = datetime(2018, 9, 12, 13, 37, 00)
+    endtime = datetime(2018, 10, 18, 23, 59, 59)
+    middletime = datetime(2018, 10, 17, 12, 00, 00)
+    
+    nowtime = datetime.now()
+
+    limit = 53
+    maxlimit = 100
+
+    partisipants = Fucu.query.all()
+    count = Fucu.query.count()
+    fuksi = Fucu.query.filter_by(representative='Fuksi').all()
+    pro = Fucu.query.filter_by(representative='PRO').all()
+    
+    whois = [
+        {'name': 'Fuksi',
+         'quota': 53,
+         'submissions': fuksi},
+        {'name': 'Hallitus',
+         'quota': 6,
+         'submissions': pro}]
+    
+    
+#ajanalisäys
+    
+    if form.validate_on_submit() and count <= maxlimit:
+        flash('Kiitos ilmoittautumisestasi')
+        sub = Fucu(
+            name=form.name.data,
+            email=form.email.data,
+            phone=form.phone.data,
+            representative=form.representative.data,
+            place=form.place.data
+        )
+        db.session.add(sub)
+        db.session.commit()
+        return redirect(url_for('fucuilmo')) #this is the fucktion name
+    elif form.is_submitted() and count > maxlimit:
+        flash('Ilmoittautuminen on täynnä')
+    return render_template('fucu.html', 
+                        title='Fucu 2018 ilmoittautuminen',
+                        partisipants=partisipants, 
+                        count=count, 
+                        starttime=starttime, 
+                        endtime=endtime, 
+                        nowtime=nowtime, 
+                        middletime = middletime,
+                        limit=limit,
+                        #guilds=guilds,
+                        fuksi=fuksi,
+                        pro=pro,
+                        form=form)
 
 @app.route('/KMP', methods=['GET', 'POST'])
 def kmpilmo():

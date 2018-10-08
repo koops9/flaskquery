@@ -32,6 +32,15 @@ class KMP(db.Model):
     representative = db.Column(db.String(24))
     place = db.Column(db.String(64))
     
+class Fucu(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    phone = db.Column(db.String(64))
+    representative = db.Column(db.String(24))
+    place = db.Column(db.String(64))
+    #time = db.Column(db.String(64))
+    
 class Humu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
