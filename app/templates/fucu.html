@@ -1,8 +1,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
-
 {% extends "headers.html" %}
-
 {% block content %}
+
     <div class="container">
         <div class="page-header">
             <h1>{{ title }}</h1>
@@ -11,7 +10,7 @@
 Tervetuloa ilmoittautumaan OTiTin fuksicursiolle 2018!
 Fuksicursio alkaa 19.10 klo.9:00 ja päättyy 20.10 noin klo. 11:00.
 Jyväskylässä ollaan noin pe 18:00 - la 04:00.
-Fuksicursio on fukseille täysin ilmainen! Muille kiltalaisille fuksicursio maksaa XX€.
+Fuksicursio on fukseille täysin ilmainen! Muille kiltalaisille fuksicursio maksaa 10 €.
 Fuksicursion päämäärä on tänä vuonna Jyväskylä, jossa pääsemme saunatiloihin iltaa viettämään ja tapaamaan paikallisia tietotekniikan opiskelijoita.
 Matkan alussa käydään myös yritysvierailulla, joka on tänä vuonna MediaTek Oulussa.</p>
 <br>Mukaan kannattaa ottaa:</br>
@@ -19,39 +18,40 @@ Matkan alussa käydään myös yritysvierailulla, joka on tänä vuonna MediaTek
 	<li>Fuksi-/teekkarilakki (lakkilupa on)</li>
 	<li>Fuksipassi (pisteet talteen hyvissä ajoin)</li>
 	<li>Lämmintä vaatetta (etelässäkin on syksy)</li>
-	<li>Käteistä/pankkikortti</li>
+	<li>Käteistä/pankkikortti/henkkarit</li>
 	<li>Pyyhe</li>
 	<li>Puhelimen laturi</li>
     <li>Omat juomat jätetään kotiin (ennen yritysvierailua ei korkata ja matkalla pysähdytään kaupassa käyntiä varten)</li> </ul>
 <br>Mukaan pääset täyttämällä alle kysytyt tiedot.</br>
 <br>Ilmoittautuminen aukeaa fukseille, hallitukselle ja PROille {{ starttime }}</br>
-<br>Ilmoittautuminen aukeaa muille kiltalaisille {{ middletime }}</br>
-<br> Ilmoittautuminen sulkeutuu {{ endtime }}.
+Ilmoittautuminen aukeaa muille kiltalaisille {{ middletime }}
+<p>Ilmoittautuminen sulkeutuu {{ endtime }}.</p>
 	
 	
 <p>Ilmoittautuessa annettuja tietoja käytetään vain kyseisen tapahtuman järjestämistä varten.
 Annettuja tietoja säilytetään vain niin kauan kuin tapahtuman kannalta on tarpeellista ja poistetaan sen jälkeen.</p>
-
         </div>
-    {% if starttime < nowtime < endtime %}
+        
+        
+    {% if (starttime < nowtime < endtime)%}
     <form class="form form-horizontal" method="post" role="form">
         {{ form.hidden_tag() }}
         {{ wtf.form_field(form.name) }}
         {{ wtf.form_field(form.email) }}
         {{ wtf.form_field(form.phone) }}
         {{ wtf.form_field(form.representative) }}
-        {{ wtf.form_field(form.representativelate) }}
         {{ wtf.form_field(form.place) }}
+        {{ wtf.form_field(form.publish) }}
         {{ wtf.form_field(form.submit) }}
     </form>
+    {% elif nowtime < starttime %}
+        <p> Ilmoittautuminen aukeaa {{starttime }} </p>
     {% else %}
         <p>Ilmoittautuminen on päättynyt</p>
     {% endif %}
 
-    
-        {% if otit or sik or muu %}
-      <h2>Ilmoittautuneet: </h2>
-      <div class="guildlist row center">
+   {% if teekkari or homonaama or fuksi %}
+    <div class="guildlist row center">
         {% for guild in guilds %}
           <div class="guild col-md-4">
             <h3>{{ guild.name }}</h3>
@@ -60,11 +60,18 @@ Annettuja tietoja säilytetään vain niin kauan kuin tapahtuman kannalta on tar
               <ol>
                 {% for sub in guild.submissions %}
                   <li>
-                    {{ sub.name[:30] }}
-                    {% if loop.index > guild.quota %}
-                      (varalla)
+                    {% if sub.publish %}
+                        {{sub.name}}
+                        {% if sub.id > 5 %}
+                            (varasijalla)
+                        {%endif%}
+                    {% else %}
+                        Nimi piilotettu
+                        {% if sub.id > 5 %}
+                            (varasijalla)
+                        {% endif %}
                     {% endif %}
-                  </li>
+                    </li>
                 {% endfor %}
               </ol>
             {% else %}
@@ -78,15 +85,6 @@ Annettuja tietoja säilytetään vain niin kauan kuin tapahtuman kannalta on tar
     {% endif %}
     
     
-    <!--
-    <h3>Ilmoittautuneet: {{ count }}/{{ limit }}</h3>
-    {% for partisipant in partisipants  %}
-        <p>{{ partisipant.name[:30] }} - {{ partisipant.representative[:50] }}
-        {% if loop.index > limit %}
-             (varasijalla)
-        {% endif %}
-        </p>
-    {% endfor %} -->
     </div>
 {% endblock %}
 

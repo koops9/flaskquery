@@ -1,8 +1,11 @@
 {% import "bootstrap/wtf.html" as wtf %}
-
+{% import 'macros.html' as macros %}
+{% import 'sitsimacro.html' as sitsit %}
 {% extends "headers.html" %}
 
 {% block content %}
+<script src="static/showme.js">
+  </script>
     <div class="container">
         <div class="page-header">
             <h1>{{ title }}</h1>
@@ -13,7 +16,7 @@
         
     {% if starttime < nowtime < endtime %}
     <form class="form form-horizontal" method="post" role="form">
-        {{ form.hidden_tag() }}
+       {{ form.hidden_tag() }}
         {{ wtf.form_field(form.name) }}
         {{ wtf.form_field(form.email) }}
         {{ wtf.form_field(form.representative) }}
@@ -23,6 +26,8 @@
         {{ wtf.form_field(form.drink) }}
         {{ wtf.form_field(form.wine) }}
         {{ wtf.form_field(form.food) }}
+        
+        
         {{ wtf.form_field(form.submit) }}
     </form>
     {% elif nowtime < starttime %}

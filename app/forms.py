@@ -71,12 +71,12 @@ class FucuForm(FlaskForm):
     email = StringField('Sähköposti', validators=[Email()])
     phone = StringField('Puhelinnumero', validators=[DataRequired()])
     representative = SelectField('Olen', 
-                                choices=[('Fuksi', 'Fuksi'),('Hallituslainen', 'Hallituslainen'),('PRO', 'PRO')])
-    representativelate = SelectField('Olen', 
-                                choices=[('Fuksi', 'Fuksi'),('Hallituslainen', 'Hallituslainen'),('PRO', 'PRO'), 
-                                ('Muu kiltalainen', 'Teekkari')])
+                                choices=[('Fuksi', 'Fuksi'),( 'Homonaama', 'Hallitus/PRO/juomasa/windance')])
+
     place = SelectField('Mistä nouset kyytiin?', 
                         choices=[('Oulun yliopisto','Oulun yliopisto'), 
                                 ('Tuira','Tuira'),
                                 ('Keskusta','Oulun Linja-autoasema')])
+    #luovuta tiedot täppä
+    publish = BooleanField('Minun nimeni saa julkaista ilmoittautuneiden listalla.')
     submit = SubmitField('Ilmoittaudu')

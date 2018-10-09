@@ -3,50 +3,68 @@ from app import app, db
 from app.forms import HumuForm, KMPForm, OKSForm, FucuForm
 from .models import Humu, KMP, OKS, Fucu
 from datetime import datetime
+from wtforms import SelectField
 
 @app.route('/fucu2018', methods=['GET', 'POST'])
 def fucuilmo():
-    form = FucuForm()
 
-    starttime = datetime(2018, 9, 12, 13, 37, 00)
+    starttime = datetime(1018, 10, 12, 12, 00, 00)
     endtime = datetime(2018, 10, 18, 23, 59, 59)
     middletime = datetime(2018, 10, 17, 12, 00, 00)
     
     nowtime = datetime.now()
 
-    limit = 53
+    limit = 58
     maxlimit = 100
 
+    class TeekkariForm(FucuForm):
+        representative = SelectField('Olen', 
+                                    choices=[('Fuksi', 'Fuksi'),( 'Homonaama', 'Hallitus/PRO/juomasa/windance'), ('Teekkari', 'Teekkari')])
+    if nowtime > middletime:
+        form = TeekkariForm()
+    else:
+        form = FucuForm()
+    
+    
     partisipants = Fucu.query.all()
     count = Fucu.query.count()
     fuksi = Fucu.query.filter_by(representative='Fuksi').all()
-    pro = Fucu.query.filter_by(representative='PRO').all()
-    
-    whois = [
+    homonaama = Fucu.query.filter_by(representative='Homonaama').all()
+    teekkari = Fucu.query.filter_by(representative='Teekkari').all()
+         
+    guilds = [
         {'name': 'Fuksi',
-         'quota': 53,
+         'quota': 58,
          'submissions': fuksi},
-        {'name': 'Hallitus',
-         'quota': 6,
-         'submissions': pro}]
-    
-    
-#ajanalisäys
-    
+        {'name': 'Homonaama',
+         'quota': 15,
+         'submissions': homonaama},
+        {'name': 'Teekkari',
+         'quota': 40,
+         'submissions': teekkari}]
+    #reserve = max(0, count - limit + 1)
+    #reserves = Fucu.query.filter(Fucu.reserve > 0).order_by(Fucu.reserve.asc())
+
     if form.validate_on_submit() and count <= maxlimit:
+        
         flash('Kiitos ilmoittautumisestasi')
         sub = Fucu(
             name=form.name.data,
             email=form.email.data,
             phone=form.phone.data,
             representative=form.representative.data,
-            place=form.place.data
+            place=form.place.data,
+            publish=form.publish.data
         )
         db.session.add(sub)
         db.session.commit()
         return redirect(url_for('fucuilmo')) #this is the fucktion name
     elif form.is_submitted() and count > maxlimit:
-        flash('Ilmoittautuminen on täynnä')
+        flash('Ilmoittautuminen on täynnä.')
+    elif form.is_submitted() and count > limit:
+        flash('Ilmoittautuminen on täynnä. Olet varasijalla.')
+    elif form.is_submitted() and count < maxlimit:
+        flash('Ilmoittautuminen epäonnistui!')
     return render_template('fucu.html', 
                         title='Fucu 2018 ilmoittautuminen',
                         partisipants=partisipants, 
@@ -56,9 +74,10 @@ def fucuilmo():
                         nowtime=nowtime, 
                         middletime = middletime,
                         limit=limit,
-                        #guilds=guilds,
+                        guilds=guilds,
                         fuksi=fuksi,
-                        pro=pro,
+                        homonaama=homonaama,
+                        teekkari=teekkari,
                         form=form)
 
 @app.route('/KMP', methods=['GET', 'POST'])
