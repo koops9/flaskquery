@@ -3,7 +3,7 @@ from app import app, db
 from app.forms import Form
 from app.models import Model
 from datetime import datetime
-import sys
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -16,16 +16,16 @@ def index():
     otitlimit = 36
     communicalimit = 36
 
-    maxlimit = 100
-
-
     entrys = Model.query.all()
     count = Model.query.count()
+
 
     otits = []
     communicas = []
     otitcount = 0
     communicacount = 0
+
+    maxlimit = 500
 
     entries = len(entrys)
     for entry in entrys:
@@ -62,8 +62,10 @@ def index():
         db.session.add(sub)
         db.session.commit()
         return redirect(url_for('index'))
+
     elif form.is_submitted() and count > maxlimit:
         flash('Query is already full')
+
     return render_template('index.html',
                            starttime=starttime,
                            endtime=endtime,
