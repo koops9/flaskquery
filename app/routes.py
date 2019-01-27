@@ -13,8 +13,8 @@ def index():
     endtime = datetime(3018, 2, 2, 23, 59, 00)
     nowtime = datetime.now()
 
-    otitlimit = 36
-    communicalimit = 36
+    otitlimit = 38
+    communicalimit = 38
 
     entrys = Model.query.all()
     count = Model.query.count()
@@ -22,41 +22,37 @@ def index():
 
     otits = []
     communicas = []
-    otitcount = 0
-    communicacount = 0
 
     maxlimit = 500
 
-    entries = len(entrys)
+
     for entry in entrys:
-        if entry["guild"] == "otit":
-            otits.append(entry)
-            otitcount += 1
-            if entry["avec"]:
-                otitcount += 1
-        elif entry["guild"] == "communica":
-            communicas.append(entry)
-            communicacount += 1
-            if entry["avec"]:
-                communicacount += 1
+        if entry.guild == "otit":
+            otits.append({"name": entry.name, "avec": False})
+            if entry.avec:
+                otits.append({"name": entry.avec_name, "avec": True})
+        elif entry.guild == "communica":
+            communicas.append({"name": entry.name, "avec": False})
+            if entry.avec:
+                communicas.append({"name": entry.avec_name, "avec": True})
 
 
     if form.validate_on_submit() and count <= maxlimit:
-        flash('Thank you for participating')
+        flash('Kiitos ilmoittautumisesta!')
         sub = Model(
-            name=form.string.data,
-            mail = form.string.data,
-            guild = form.string.data,
-            alcohol = form.string.data,
-            wine = form.string.data,
-            beer = form.string.data,
-            specialneeds = form.text.data,
-            avec = form.boolean.data,
-            avec_name = form.string.data,
-            avec_alcohol = form.string.data,
-            avec_wine = form.string.data,
-            avec_beer = form.string.data,
-            avec_specialneeds = form.text.data,
+            name=form.name.data,
+            mail = form.mail.data,
+            guild = form.guild.data,
+            alcohol = form.alcohol.data,
+            wine = form.wine.data,
+            beer = form.beer.data,
+            specialneeds = form.specialneeds.data,
+            avec = form.avec.data,
+            avec_name = form.avec_name.data,
+            avec_alcohol = form.avec_alcohol.data,
+            avec_wine = form.avec_wine.data,
+            avec_beer = form.avec_beer.data,
+            avec_specialneeds = form.avec_specialneeds.data,
             datetime = nowtime
         )
         db.session.add(sub)
@@ -64,7 +60,7 @@ def index():
         return redirect(url_for('index'))
 
     elif form.is_submitted() and count > maxlimit:
-        flash('Query is already full')
+        flash('Ilmoittautuminen täynnä!')
 
     return render_template('index.html',
                            starttime=starttime,
@@ -72,9 +68,8 @@ def index():
                            nowtime=nowtime,
                            otitlimit=otitlimit,
                            otits=otits,
-                           otitcount=otitcount,
+                           otitcount=len(otits),
                            communicalimit=communicalimit,
                            communicas=communicas,
-                           communicacount=communicacount,
-                           form=form,
-                           entries=entries)
+                           communicacount=len(communicas),
+                           form=form)
