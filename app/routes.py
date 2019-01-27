@@ -57,7 +57,7 @@ def index():
         )
         db.session.add(sub)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect("https://www.otit.fi/humanoori-ilmo/")
 
     elif form.is_submitted() and count > maxlimit:
         flash('Ilmoittautuminen täynnä!')
