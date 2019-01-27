@@ -3,6 +3,7 @@ from app import app, db
 from app.forms import Form
 from app.models import Model
 from datetime import datetime
+import sys
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -12,31 +13,66 @@ def index():
     endtime = datetime(3018, 2, 2, 23, 59, 00)
     nowtime = datetime.now()
 
-    limit = 64
+    otitlimit = 36
+    communicalimit = 36
+
     maxlimit = 100
+
 
     entrys = Model.query.all()
     count = Model.query.count()
 
+    otits = []
+    communicas = []
+    otitcount = 0
+    communicacount = 0
+
+    entries = len(entrys)
+    for entry in entrys:
+        if entry["guild"] == "otit":
+            otits.append(entry)
+            otitcount += 1
+            if entry["avec"]:
+                otitcount += 1
+        elif entry["guild"] == "communica":
+            communicas.append(entry)
+            communicacount += 1
+            if entry["avec"]:
+                communicacount += 1
+
+
     if form.validate_on_submit() and count <= maxlimit:
         flash('Thank you for participating')
         sub = Model(
-            string = form.string.data,
-            boolean = form.boolean.data,
-            radio = form.string.data,
-            text = form.text.data,
-            datetime = nowtime,
+            name=form.string.data,
+            mail = form.string.data,
+            guild = form.string.data,
+            alcohol = form.string.data,
+            wine = form.string.data,
+            beer = form.string.data,
+            specialneeds = form.text.data,
+            avec = form.boolean.data,
+            avec_name = form.string.data,
+            avec_alcohol = form.string.data,
+            avec_wine = form.string.data,
+            avec_beer = form.string.data,
+            avec_specialneeds = form.text.data,
+            datetime = nowtime
         )
         db.session.add(sub)
         db.session.commit()
         return redirect(url_for('index'))
     elif form.is_submitted() and count > maxlimit:
         flash('Query is already full')
-    return render_template('index.html', title='Query',
-                                         entrys=entrys,
-                                         count=count,
-                                         starttime=starttime,
-                                         endtime=endtime,
-                                         nowtime=nowtime,
-                                         limit=limit,
-                                         form=form)
+    return render_template('index.html',
+                           starttime=starttime,
+                           endtime=endtime,
+                           nowtime=nowtime,
+                           otitlimit=otitlimit,
+                           otits=otits,
+                           otitcount=otitcount,
+                           communicalimit=communicalimit,
+                           communicas=communicas,
+                           communicacount=communicacount,
+                           form=form,
+                           entries=entries)

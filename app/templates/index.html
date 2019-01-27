@@ -5,33 +5,88 @@
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h1>{{ title }}</h1>
+            <h1>titlegoeshere</h1>
+            debug {{ entries }}
         </div>
-    {% if starttime < nowtime < endtime %}
-    <form class="form form-horizontal" method="post" role="form">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_field(form.string) }}
-        {{ wtf.form_field(form.boolean) }}
-        {{ wtf.form_field(form.radio) }}
-        {% for e in form.radio.errors %}
-            <p class="text-danger">{{ e }}</p>
-        {% endfor %}
-        {{ wtf.form_field(form.text) }}
-        {{ wtf.form_field(form.submit) }}
-    </form>
-    {% elif nowtime < starttime %}
-        <p>Query will start at {{ starttime }}</p>
-    {% else %}
-        <p>Query has ended</p>
-    {% endif %}
+        {% if starttime < nowtime < endtime %}
+            <form class="form form-horizontal" method="post" role="form">
 
-    <h3>Partisipants: {{ count }}/{{ limit }}</h3>
-    {% for entry in entrys%}
-        <p>{{ entry.string[:30] }}
-        {% if loop.index > limit %}
-             (in queue)
+
+                {{ wtf.form_field(form.name) }}
+
+                {{ wtf.form_field(form.mail) }}
+                <label class="extra-label">Kilta</label>
+                {{ wtf.form_field(form.guild) }}
+                {% for e in form.guild.errors %}
+                    <p class="text-danger">{{ e }}</p>
+                {% endfor %}
+
+                <label class="extra-label">Juomatoive</label>
+                {{ wtf.form_field(form.alcohol) }}
+                {% for e in form.alcohol.errors %}
+                    <p class="text-danger">{{ e }}</p>
+                {% endfor %}
+
+                <div id="drinks" class="inset hide_">
+                    <label class="extra-label">Viini</label>
+                    {{ wtf.form_field(form.wine) }}
+
+                    <label class="extra-label">Mieto</label>
+                    {{ wtf.form_field(form.beer) }}
+                </div>
+                {{ wtf.form_field(form.specialneeds) }}
+
+
+                {{ wtf.form_field(form.avec) }}
+
+                {{ wtf.form_field(form.consent) }}
+
+                <div id="avec-info" class="inset hide_">
+                    {{ wtf.form_field(form.avec_name) }}
+
+                    <label class="extra-label">Juomatoive</label>
+                    {{ wtf.form_field(form.avec_alcohol) }}
+                    <div id="avec-drinks" class="inset hide_">
+                        <label class="extra-label">Viini</label>
+                        {{ wtf.form_field(form.avec_wine) }}
+                        <label class="extra-label">Mieto</label>
+                        {{ wtf.form_field(form.avec_beer) }}
+                    </div>
+
+                    {{ wtf.form_field(form.avec_specialneeds) }}
+                    {{ wtf.form_field(form.avec_consent) }}
+                </div>
+
+
+                {{ wtf.form_field(form.submit) }}
+            </form>
+        {% elif nowtime < starttime %}
+            <p>Query will start at {{ starttime }}</p>
+        {% else %}
+            <p>Query has ended</p>
         {% endif %}
-        </p>
-    {% endfor %}
+    <h3>Osallistujat</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>OTiT: {{ otitcount }}/{{ otitlimit }}</h4>
+                {% for entry in otits %}
+                    <p>{{ entry.name[:30] }}
+                        {% if loop.index > otitlimit %}
+                            (Varasijalla)
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="col-sm-6">
+                <h4>Communica: {{ communicacount }}/{{ communicalimit }}</h4>
+                {% for entry in communicas %}
+                    <p>{{ entry.name[:30] }}
+                        {% if loop.index > communicalimit %}
+                            (Varasijalla)
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
