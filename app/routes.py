@@ -9,7 +9,7 @@ from datetime import datetime
 def index():
     form = Form()
 
-    starttime = datetime(2019, 1, 28, 12, 00, 00)
+    starttime = datetime(2018, 1, 27, 12, 00, 00)
     endtime = datetime(2019, 2, 1, 23, 59, 00)
     nowtime = datetime.now()
 
