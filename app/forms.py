@@ -5,20 +5,17 @@ from wtforms.validators import DataRequired, InputRequired, Optional
 class Form(FlaskForm):
     name = StringField('Nimi*', validators=[DataRequired()])
     mail = StringField('Sähköpostiosoite*', validators=[DataRequired()])
-    guild = RadioField('Kilta', choices=(['otit', 'OTiT'], ['communica', 'Communica']))
-    alcohol = RadioField('Juomatoive', choices=(['alkoholillinen', 'Alkoholillinen'], ['alkoholiton', 'Alkoholiton']))
-    wine = RadioField('Juomatoive', choices=(['punaviini', 'Punaviini'], ['valkoviini', 'Valkoviini']), validators=[Optional()])
-    beer = RadioField('Juomatoive', choices=(['olut', 'Olut'], ['siideri', 'Siideri']), validators=[Optional()])
+    wine = RadioField('Ruokajuomatoive', choices=(['viini', 'Viini'], ['holiton', 'Alkoholiton']), validators=[Optional()])
     specialneeds = TextAreaField('Allergiat ja erityisruokavaliot')
+    place_wish = StringField('Edustava taho')
+    cocktail_who = StringField('Edustava taho')
     consent = BooleanField(
         'Hyväksyn henkilötietojeni käsittelyn <a target = "_blank" href = "https://www.otit.fi/~jsloth/temp/tietosuojaseloste.pdf" > tietosuojaselosteen </a> mukaisesti, sekä ymmärrän ilmoittatumisen olevan sitova.',
         validators=[InputRequired()])
 
     avec = BooleanField('Avec')
     avec_name = StringField('Avecin nimi*')
-    avec_alcohol = RadioField('Juomatoive', choices=(['alkoholillinen', 'Alkoholillinen'], ['alkoholiton', 'Alkoholiton']), validators=[Optional()])
-    avec_wine = RadioField('Juomatoive', choices=(['punaviini', 'Punaviini'], ['valkoviini', 'Valkoviini']), validators=[Optional()])
-    avec_beer = RadioField('Juomatoive', choices=(['olut', 'Olut'], ['siideri', 'Siideri']), validators=[Optional()])
+    avec_wine = RadioField('Ruokajuomatoive', choices=(['viini', 'Viini'], ['holiton', 'Alkoholiton']), validators=[Optional()])
     avec_specialneeds = TextAreaField('Allergiat ja erityisruokavaliot')
     avec_consent = BooleanField(
         'Avecini hyväksyy hänen henkilötietojensa käsittelyn <a target = "_blank" href = "https://www.otit.fi/~jsloth/temp/tietosuojaseloste.pdf" > tietosuojaselosteen </a> mukaisesti.', default="checked", validators=[InputRequired()])

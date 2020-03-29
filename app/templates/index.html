@@ -5,47 +5,13 @@
 {% block content %}
     <div class="container">
         <div class="page-header">
-            <h1>Humanöörit goes Love Island</h1>
+            <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
         </div>
         <p>
-            OTiT ja Communica järjestävät taas jo perinteeksi muodostuneet Humanöörisitsit Teekkaritalolla. Tänä vuonna
-            sitsien teemana toimii ystävänpäivän kunniaksi Humanöörit goes Love Island. Tule siis paikan päälle ja
-            selvitä, löytyykö sinun elämäsi kumppani rakkauden talolta! Pukukoodina toimii tänä vuonna tumma
-            puku/cocktailmekko pinkillä tai punaisella twistillä. Pukeudu siis parhaimpiisi ja suuntaa Oulun omalle Love
-            Islandille etsimään elämäsi rakkautta!
+            OTA SNAPSI vujute jeee
         </p>
         <p>
-            Jatkoilla meininki lämpenee entisestään paljun ja saunan kuumentuessa, joten varaa OPM x2!
-        </p>
-        <p>
-            Tervetulleita sitsaamaan ovat Communican ja OTiTin opiskelijat aveceineen. Mukaan mahtuu 38 nopeinta
-            molemmista
-            killoista. Sitsilippu kustantaa alkoholittomana 17€ ja alkoholillisena 20€.
-        </p>
-        <p>
-            Maksu Oulun Tietoteekkarit ry:n tilille FI03 4744 3020 0116 87 11.2. mennessä, viestikenttään "Humanöörisitsit", sekä oma (ja avecin
-            jos
-            maksat myös avecin) nimi.
-        <p>
-        <ul>
-            <li>
-                Mitä? Humanöörisitsit goes Love Island
-            </li>
-            <li>
-                Missä? Teekkaritalo
-            </li>
-            <li>
-                Milloin? Torstaina 14.2. klo 19
-            </li>
-            <li>
-                Pukukoodi? Tumma puku/cocktailmekko pinkillä tai punaisella twistillä
-            </li>
-            <li>
-                Paljonko? 17/20€ (holiton/holillinen)
-            </li>
-        </ul>
-        <p>
-        ilmoittautuminen auki 28.1.-1.2.
+        ilmoittautuminen auki {{ form }}
         </p>
         {% if starttime < nowtime < endtime %}
             <h2>Ilmoittautuminen</h2>
@@ -55,24 +21,11 @@
                 {{ wtf.form_field(form.name) }}
 
                 {{ wtf.form_field(form.mail) }}
-                <label class="extra-label">Kilta</label>
-                {{ wtf.form_field(form.guild) }}
-                {% for e in form.guild.errors %}
-                    <p class="text-danger">Valitse kilta</p>
-                {% endfor %}
-
-                <label class="extra-label">Juomatoive</label>
-                {{ wtf.form_field(form.alcohol) }}
-                {% for e in form.alcohol.errors %}
-                    <p class="text-danger">Valitse juoma</p>
-                {% endfor %}
 
                 <div id="drinks" class="inset hide_">
                     <label class="extra-label">Viini</label>
                     {{ wtf.form_field(form.wine) }}
 
-                    <label class="extra-label">Mieto</label>
-                    {{ wtf.form_field(form.beer) }}
                 </div>
                 {{ wtf.form_field(form.specialneeds) }}
 
@@ -84,13 +37,9 @@
                 <div id="avec-info" class="inset hide_">
                     {{ wtf.form_field(form.avec_name) }}
 
-                    <label class="extra-label">Juomatoive</label>
-                    {{ wtf.form_field(form.avec_alcohol) }}
                     <div id="avec-drinks" class="inset hide_">
                         <label class="extra-label">Viini</label>
                         {{ wtf.form_field(form.avec_wine) }}
-                        <label class="extra-label">Mieto</label>
-                        {{ wtf.form_field(form.avec_beer) }}
                     </div>
 
                     {{ wtf.form_field(form.avec_specialneeds) }}
@@ -111,26 +60,13 @@
         <h2>Osallistujat</h2>
         <div class="row">
             <div class="col-sm-6">
-                <h3>OTiT: {{ otitcount }}/{{ otitlimit }}</h3>
-                {% for entry in otits %}
+                <h3>Ilmoittautuneet: {{ counter }}/{{ snapsilimit }}</h3>
+                {% for entry in entries %}
                     <p>{{ loop.index }}. {{ entry["name"][:30] }}
                         {% if entry["avec"] %}
                             <span class="avecheart">❤️</span>
                         {% endif %}
-                        {% if loop.index > otitlimit %}
-                            (Varasijalla)
-                        {% endif %}
-                    </p>
-                {% endfor %}
-            </div>
-            <div class="col-sm-6">
-                <h3>Communica: {{ communicacount }}/{{ communicalimit }}</h3>
-                {% for entry in communicas %}
-                    <p>{{ loop.index }}. {{ entry["name"][:30] }}
-                        {% if entry["avec"] %}
-                            <span class="avecheart">❤️</span>
-                        {% endif %}
-                        {% if loop.index > communicalimit %}
+                        {% if loop.index > snapsilimit %}
                             (Varasijalla)
                         {% endif %}
                     </p>
