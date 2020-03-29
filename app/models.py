@@ -5,7 +5,7 @@ class Model(db.Model):
 
     name = db.Column(db.String(64))
     mail = db.Column(db.String(64))
-    guild =  db.Column(db.String(64))
+    guild = db.Column(db.String(64))
     alcohol = db.Column(db.String(64))
     wine = db.Column(db.String(64))
     beer = db.Column(db.String(64))

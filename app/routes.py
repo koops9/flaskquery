@@ -9,11 +9,11 @@ from datetime import datetime
 def index():
     form = Form()
 
-    starttime = datetime(2018, 1, 27, 12, 00, 00)
-    endtime = datetime(2019, 2, 1, 23, 59, 00)
+    starttime = datetime(2020, 1, 27, 12, 00, 00)
+    endtime = datetime(2020, 6, 1, 23, 59, 00)
     nowtime = datetime.now()
 
-    otitlimit = 38
+    otitlimit = 200
     communicalimit = 38
 
     entrys = Model.query.all()
@@ -57,7 +57,7 @@ def index():
         )
         db.session.add(sub)
         db.session.commit()
-        return redirect("https://www.otit.fi/humanoori-ilmo/")
+        return redirect("https://www.otit.fi/snapsi16v/")
 
     elif form.is_submitted() and count > maxlimit:
         flash('Ilmoittautuminen täynnä!')
