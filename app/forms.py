@@ -7,7 +7,7 @@ class Form(FlaskForm):
     mail = StringField('Sähköpostiosoite*', validators=[DataRequired()])
     wine = RadioField('Ruokajuomatoive', choices=(['viini', 'Viini'], ['holiton', 'Alkoholiton']), validators=[Optional()])
     specialneeds = TextAreaField('Allergiat ja erityisruokavaliot')
-    place_wish = StringField('Edustava taho')
+    place_wish = StringField('Plaseeraustoive')
     cocktail_who = StringField('Edustava taho')
     consent = BooleanField(
         'Hyväksyn henkilötietojeni käsittelyn <a target = "_blank" href = "https://www.otit.fi/~jsloth/temp/tietosuojaseloste.pdf" > tietosuojaselosteen </a> mukaisesti, sekä ymmärrän ilmoittatumisen olevan sitova.',

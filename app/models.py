@@ -10,7 +10,6 @@ class Model(db.Model):
     cocktail_who = db.Column(db.String(64))
     avec = db.Column(db.Boolean())
     avec_name = db.Column(db.String(64))
-    avec_alcohol = db.Column(db.String(64))
     avec_wine = db.Column(db.String(64))
     avec_specialneeds = db.Column(db.String(500))
 

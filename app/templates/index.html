@@ -4,6 +4,7 @@
 
 {% block content %}
     <div class="container">
+    <img src="./../static/img/1.gif"
         <div class="page-header">
             <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
         </div>
@@ -19,15 +20,17 @@
 
                 {{ form.hidden_tag() }}
                 {{ wtf.form_field(form.name) }}
-
                 {{ wtf.form_field(form.mail) }}
 
-                <div id="drinks" class="inset hide_">
-                    <label class="extra-label">Viini</label>
-                    {{ wtf.form_field(form.wine) }}
+                <label>Ruokajuoma</label>
+                {{ wtf.form_field(form.wine) }}
 
-                </div>
                 {{ wtf.form_field(form.specialneeds) }}
+
+                {{ wtf.form_field(form.cocktail_who) }}
+
+
+                {{ wtf.form_field(form.place_wish) }}
 
 
                 {{ wtf.form_field(form.avec) }}
@@ -36,11 +39,8 @@
 
                 <div id="avec-info" class="inset hide_">
                     {{ wtf.form_field(form.avec_name) }}
-
-                    <div id="avec-drinks" class="inset hide_">
-                        <label class="extra-label">Viini</label>
-                        {{ wtf.form_field(form.avec_wine) }}
-                    </div>
+                    <label class="extra-label">Avecin ruokajuoma</label>
+                    {{ wtf.form_field(form.avec_wine) }}
 
                     {{ wtf.form_field(form.avec_specialneeds) }}
                     {{ wtf.form_field(form.avec_consent) }}
