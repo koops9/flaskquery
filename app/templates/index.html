@@ -4,7 +4,14 @@
 
 {% block content %}
     <div class="container">
-    <img src="./../static/img/1.gif"
+    <img src="./../static/img/cutelilwhitething.gif">
+    <img src="./../static/img/glitter_rose.gif">
+    <img src="./../static/img/rosegif.gif">
+    <img src="./../static/img/whitestars.gif">
+    <img src="./../static/img/rosegif.gif">
+    <img src="./../static/img/glitter_stars.gif">
+
+
         <div class="page-header">
             <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
         </div>
@@ -14,6 +21,7 @@
         <p>
         ilmoittautuminen auki {{ form }}
         </p>
+        <img src="./../static/img/stars.gif">
         {% if starttime < nowtime < endtime %}
             <h2>Ilmoittautuminen</h2>
             <form class="form form-horizontal" method="post" role="form">
@@ -53,7 +61,7 @@
                 {{ wtf.form_field(form.submit) }}
             </form>
         {% elif nowtime < starttime %}
-            <p>Ilmoittautuminen alkaa {{ starttime }}</p>
+            <p>Ilmoittautuminen alkaa seuraavana ajankohtana {{ starttime }}</p>
         {% else %}
             <p>Ilmoittautuminen on päättynyt</p>
         {% endif %}
@@ -73,7 +81,7 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
+        </div>
 
 
     <div class="snowflakes" aria-hidden="true">
