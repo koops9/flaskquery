@@ -9,6 +9,7 @@ class Form(FlaskForm):
     specialneeds = TextAreaField('Allergiat ja erityisruokavaliot')
     place_wish = StringField('Plaseeraustoive')
     cocktail_who = StringField('Edustava taho')
+    show_name = BooleanField('Nimeni saa näyttää ilmoittautuneiden listassa')
     consent = BooleanField(
         'Hyväksyn henkilötietojeni käsittelyn <a target = "_blank" href = "https://www.otit.fi/~jsloth/temp/tietosuojaseloste.pdf" > tietosuojaselosteen </a> mukaisesti, sekä ymmärrän ilmoittatumisen olevan sitova.',
         validators=[InputRequired()])
@@ -17,6 +18,7 @@ class Form(FlaskForm):
     avec_name = StringField('Avecin nimi*')
     avec_wine = RadioField('Ruokajuomatoive', choices=(['viini', 'Viini'], ['holiton', 'Alkoholiton']), validators=[Optional()])
     avec_specialneeds = TextAreaField('Allergiat ja erityisruokavaliot')
+    avec_show_name = BooleanField('Aveccini nimen saa näyttää ilmoittautuneiden listassa')
     avec_consent = BooleanField(
         'Avecini hyväksyy hänen henkilötietojensa käsittelyn <a target = "_blank" href = "https://www.otit.fi/~jsloth/temp/tietosuojaseloste.pdf" > tietosuojaselosteen </a> mukaisesti.', default="checked", validators=[InputRequired()])
 

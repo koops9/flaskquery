@@ -8,10 +8,15 @@ class Model(db.Model):
     specialneeds = db.Column(db.String(500))
     place_wish = db.Column(db.String(64))
     cocktail_who = db.Column(db.String(64))
+    show_name = db.Column(db.Boolean())
     avec = db.Column(db.Boolean())
     avec_name = db.Column(db.String(64))
     avec_wine = db.Column(db.String(64))
     avec_specialneeds = db.Column(db.String(500))
+    avec_show_name = db.Column(db.Boolean())
+    datetime = db.Column(db.DateTime)
 
-    datetime = db.Column(db.DateTime())
+
+
+datetime = db.Column(db.DateTime())
 
