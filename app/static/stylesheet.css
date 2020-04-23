@@ -2,6 +2,14 @@
     margin-right: 0;
     margin-left: 0;
 }
+.form{
+    align-content: center;
+    max-width: 500px;
+}
+.page-header{
+    display: flex;
+    border: none;
+}
 
 .extra-label{
     margin-bottom: 0;
@@ -30,9 +38,12 @@ html, body {
 
 body {
     background-size: cover;
-    background: linear-gradient(#ff00c8, #000000 10%) repeat-x fixed center #000000;
-    color: white;
-    font-family: "arial", serif;
+
+    /*background: linear-gradient(#ff00c8, #000000 10%) repeat-x fixed center #000000;*/
+    color: #ecb350;
+    background-color: #000226;
+    /*font-family: "arial", serif;*/
+    font-family: Georgia;
 }
 
 

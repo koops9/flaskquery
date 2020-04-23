@@ -4,16 +4,16 @@
 
 {% block content %}
     <div class="container">
-    <img src="./../static/img/cutelilwhitething.gif">
     <img src="./../static/img/glitter_rose.gif">
-    <img src="./../static/img/rosegif.gif">
-    <img src="./../static/img/whitestars.gif">
-    <img src="./../static/img/rosegif.gif">
     <img src="./../static/img/stars.gif">
 
 
         <div class="page-header">
+            <img src="./../static/img/rosegif.gif">
+
             <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
+            <img src="./../static/img/rosegif.gif">
+
         </div>
         <p>
             OTA SNAPSI vujute jeee
@@ -23,6 +23,7 @@
         </p>
         <img src="./../static/img/glitter_stars.gif">
         {% if starttime < nowtime < endtime %}
+            <div class="formstyles">
             <h2>Ilmoittautuminen</h2>
             <form class="form form-horizontal" method="post" role="form">
 
@@ -37,7 +38,6 @@
 
                 {{ wtf.form_field(form.cocktail_who) }}
 
-
                 {{ wtf.form_field(form.place_wish) }}
 
                 {{ wtf.form_field(form.show_name) }}
@@ -45,8 +45,6 @@
                 {{ wtf.form_field(form.consent) }}
 
                 {{ wtf.form_field(form.avec) }}
-
-
 
                 <div id="avec-info" class="inset hide_">
                     {{ wtf.form_field(form.avec_name) }}
@@ -63,6 +61,7 @@
 
                 {{ wtf.form_field(form.submit) }}
             </form>
+            </div>
         {% elif nowtime < starttime %}
             <p>Ilmoittautuminen alkaa seuraavana ajankohtana {{ starttime }}</p>
         {% else %}
