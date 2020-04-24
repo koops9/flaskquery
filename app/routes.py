@@ -4,10 +4,9 @@ from app.forms import Form
 from app.models import Model
 from datetime import datetime
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
     form = Form()
 
     starttime = datetime(2020, 1, 27, 12, 00, 00)
@@ -18,10 +17,8 @@ def index():
 
     entrys = Model.query.all()
     count = Model.query.count()
-    otits = []
-    communicas = []
     myentrys = []
-    maxlimit = 500
+    maxlimit = 200
 
     for entry in entrys:
 
@@ -42,20 +39,8 @@ def index():
             else:
                 myentrys.append({"name": "Ano nyymi", "avec": False})
 
-
-        # for entry in entrys:
-    #     if entry.guild == "otit":
-    #         otits.append({"name": entry.name, "avec": False})
-    #         if entry.avec:
-    #             otits.append({"name": entry.avec_name, "avec": True})
-    #     elif entry.guild == "communica":
-    #         communicas.append({"name": entry.name, "avec": False})
-    #         if entry.avec:
-    #             communicas.append({"name": entry.avec_name, "avec": True})
-    #
-
     if form.validate_on_submit() and count <= maxlimit:
-        flash('Kiitos ilmoittautumisesta!')
+        flash('Kiitos ilmoittautumisesta! ')
         sub = Model(
             name=form.name.data,
             mail = form.mail.data,
@@ -71,6 +56,7 @@ def index():
             avec_show_name = form.avec_show_name.data,
             datetime = nowtime
         )
+
         db.session.add(sub)
         db.session.commit()
         return redirect("https://www.otit.fi/snapsi16v/")
