@@ -2,6 +2,13 @@
     margin-right: 0;
     margin-left: 0;
 }
+.flashes{
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding-top: 20px;
+    list-style: none;
+}
 .form{
     align-content: center;
     max-width: 500px;

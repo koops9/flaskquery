@@ -4,10 +4,6 @@
 
 {% block content %}
     <div class="container">
-    <img src="./../static/img/glitter_rose.gif">
-    <img src="./../static/img/stars.gif">
-
-
         <div class="page-header">
             <img src="./../static/img/rosegif.gif">
 
@@ -60,6 +56,8 @@
                 {% endfor %}
 
                 {{ wtf.form_field(form.submit) }}
+                <img src="./../static/img/glitter_rose.gif">
+
             </form>
             </div>
         {% elif nowtime < starttime %}

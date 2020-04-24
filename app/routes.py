@@ -21,7 +21,6 @@ def index():
     maxlimit = 200
 
     for entry in entrys:
-
         if entry.avec:
             count = count + 1
             if entry.show_name:
@@ -39,8 +38,33 @@ def index():
             else:
                 myentrys.append({"name": "Ano nyymi", "avec": False})
 
-    if form.validate_on_submit() and count <= maxlimit:
-        flash('Kiitos ilmoittautumisesta! ')
+    if form.validate_on_submit() and count <= (snapsilimit - 1):
+        flash('Kiitos ilmoittautumisesta! Lähetit tiedot:')
+        msg = ["Nimi:  ", form.name.data,
+               "Sähköposti:  ",  form.mail.data,
+               "Ruokajuoma:  ", form.wine.data,
+               "Eritysruokavalio:  ", form.specialneeds.data,
+               "Edustava taho:  ", form.cocktail_who.data,
+               "Plaseeraustoive:  ", form.place_wish.data,
+               "Näytä nimi:  ", form.show_name.data]
+
+        i = 0
+        max = len(msg)
+        for i in range(0, len(msg), 2):
+            printtext = msg[i] + str(msg[i + 1])
+            flash(printtext)
+
+        i = 0
+        if (form.avec.data == True):
+            flash("Avecin tiedot:")
+            avecmsg = ["Avecin nimi: ", form.avec_name.data,
+                       "Ruokajuoma: ", form.avec_wine.data,
+                       "Eritysruokavalio: ", form.avec_specialneeds.data,
+                       "Näytä avecin nimi: ", form.avec_show_name.data]
+            for i in range(0, len(avecmsg), 2):
+                printavec = avecmsg[i] + str(avecmsg[i + 1])
+                flash(printavec)
+
         sub = Model(
             name=form.name.data,
             mail = form.mail.data,
@@ -61,7 +85,7 @@ def index():
         db.session.commit()
         return redirect("https://www.otit.fi/snapsi16v/")
 
-    elif form.is_submitted() and count > maxlimit:
+    elif form.is_submitted() and count > snapsilimit:
         flash('Ilmoittautuminen täynnä!')
 
     return render_template('index.html',
