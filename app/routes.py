@@ -13,7 +13,7 @@ def index():
     endtime = datetime(2020, 6, 1, 23, 59, 00)
     nowtime = datetime.now()
 
-    snapsilimit = 100
+    snapsilimit = 90
 
     entrys = Model.query.all()
     count = Model.query.count()

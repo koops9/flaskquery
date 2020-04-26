@@ -4,69 +4,83 @@
 
 {% block content %}
     <div class="container">
-        <div class="page-header">
-            <img src="./../static/img/rosegif.gif">
+        <div class="page-top">
+            <div class="page-header">
+                <img src="./../static/img/rosegif.gif">
 
-            <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
-            <img src="./../static/img/rosegif.gif">
+                <h1>OTA sNAPsi Sweet Sixteen-vuosijuhlat!!!!11</h1>
+                <img src="./../static/img/rosegif.gif">
 
+            </div>
+            <div class="infop">
+                <p>
+                    Oulun Teekkarihenkiset Akateemikot sNAPsi ry täyttää syksyllä 16 vuotta.
+                    Järjestämme tämän kunniaksi vuosijuhlat teemalla sweet sixteen.
+                    Vuosijuhlia juhlitaan 3.10.2020 kello 17.00 alkaen Johtenhovissa,
+                    osoitteessa Kansankentäntie 4, 90510 Oulu.</p>
+                <p>
+                    Illalliskortin hinta on 75 euroa valmistuneelta (holiton 70€) ja 65 euroa opiskelijalta (holiton
+                    60€).
+                    Pukukoodina toimii teeman mukaisesti sweet sixteen, joten kaivathan glitterit kaapistasi! ;)
+                </p>
+                <p>
+                    Mikäli kysyttävää ilmenee, ottakaa yhteyttä snapsi@student.oulu.fi tai mira.s.huttunen@gmail.com.
+                </p>
+                <p>
+                    ilmoittautuminen auki {{ form.starttime }}
+                </p>
+            </div>
+            <img src="./../static/img/glitter_stars.gif">
         </div>
-        <p>
-            OTA SNAPSI vujute jeee
-        </p>
-        <p>
-        ilmoittautuminen auki {{ form.starttime }}
-        </p>
-        <img src="./../static/img/glitter_stars.gif">
         {% if starttime < nowtime < endtime %}
             <div class="formstyles">
-            <h2>Ilmoittautuminen</h2>
-            <form class="form form-horizontal" method="post" role="form">
+                <h2>Ilmoittautuminen</h2>
+                <form class="form form-horizontal" method="post" role="form">
 
-                {{ form.hidden_tag() }}
-                {{ wtf.form_field(form.name) }}
-                {{ wtf.form_field(form.mail) }}
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_field(form.name) }}
+                    {{ wtf.form_field(form.mail) }}
 
-                <label>Ruokajuoma</label>
-                {{ wtf.form_field(form.wine) }}
+                    <label>Ruokajuoma</label>
+                    {{ wtf.form_field(form.wine) }}
 
-                {{ wtf.form_field(form.specialneeds) }}
+                    {{ wtf.form_field(form.specialneeds) }}
 
-                {{ wtf.form_field(form.cocktail_who) }}
+                    {{ wtf.form_field(form.cocktail_who) }}
 
-                {{ wtf.form_field(form.place_wish) }}
+                    {{ wtf.form_field(form.place_wish) }}
 
-                {{ wtf.form_field(form.show_name) }}
+                    {{ wtf.form_field(form.show_name) }}
 
-                {{ wtf.form_field(form.consent) }}
+                    {{ wtf.form_field(form.consent) }}
 
-                {{ wtf.form_field(form.avec) }}
+                    {{ wtf.form_field(form.avec) }}
 
-                <div id="avec-info" class="inset hide_">
-                    {{ wtf.form_field(form.avec_name) }}
-                    <label class="extra-label">Avecin ruokajuoma</label>
-                    {{ wtf.form_field(form.avec_wine) }}
+                    <div id="avec-info" class="inset hide_">
+                        {{ wtf.form_field(form.avec_name) }}
+                        <label class="extra-label">Avecin ruokajuoma</label>
+                        {{ wtf.form_field(form.avec_wine) }}
 
-                    {{ wtf.form_field(form.avec_specialneeds) }}
-                    {{ wtf.form_field(form.avec_consent) }}
-                </div>
+                        {{ wtf.form_field(form.avec_specialneeds) }}
+                        {{ wtf.form_field(form.avec_consent) }}
+                    </div>
 
-                {% for e in form.errors.items() %}
-                    <p class="text-danger">{{ e }}</p>
-                {% endfor %}
+                    {% for e in form.errors.items() %}
+                        <p class="text-danger">{{ e }}</p>
+                    {% endfor %}
 
-                {{ wtf.form_field(form.submit) }}
-                <img src="./../static/img/glitter_rose.gif">
+                    {{ wtf.form_field(form.submit) }}
+                    <img src="./../static/img/glitter_rose.gif">
 
-            </form>
+                </form>
             </div>
         {% elif nowtime < starttime %}
             <p>Ilmoittautuminen alkaa seuraavana ajankohtana {{ starttime }}</p>
         {% else %}
             <p>Ilmoittautuminen on päättynyt</p>
         {% endif %}
-        <h2>Osallistujat</h2>
-        <div class="row">
+        <div class="participants">
+            <h2>Osallistujat</h2>
             <img src="./../static/img/glitter_stars.gif">
             <div class="col-sm-6">
                 <h3>Ilmoittautuneet: {{ counter }}/{{ snapsilimit }}</h3>
@@ -82,7 +96,7 @@
                 {% endfor %}
             </div>
         </div>
-        </div>
+    </div>
 
 
     <div class="snowflakes" aria-hidden="true">

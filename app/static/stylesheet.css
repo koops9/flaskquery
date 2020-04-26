@@ -2,39 +2,66 @@
     margin-right: 0;
     margin-left: 0;
 }
-.flashes{
+
+.flashes {
     color: white;
     font-size: 15px;
     text-align: center;
     padding-top: 20px;
     list-style: none;
 }
-.form{
-    align-content: center;
+
+.form {
     max-width: 500px;
+    margin: 0 auto;
 }
-.page-header{
+
+h2 {
+    text-align: center;
+}
+
+.page-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header {
     display: flex;
     border: none;
 }
 
-.extra-label{
+.infop {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.participants {
+    display: flex;
+    flex-direction: column;
+}
+
+.extra-label {
     margin-bottom: 0;
     margin-top: 10px;
 }
 
-.inset{
+.inset {
     padding-left: 40px;
     padding-bottom: 10px;
 }
 
-.hide_{
+.hide_ {
     display: none;
 }
-.avecheart{
+
+.avecheart {
     color: #ff00c8;
     font-size: 10px;
     vertical-align: top;
+}
+.col-sm-6{
+    width: auto;
+    margin: 0 auto;
 }
 
 html, body {
@@ -95,19 +122,22 @@ body {
     transform-origin: 100% 100%;
 }
 
-#heart1{
+#heart1 {
     pointer-events: none;
     opacity: 0.2;
 }
-#heart2{
+
+#heart2 {
     pointer-events: none;
     opacity: 0.4;
 }
-#heart3{
+
+#heart3 {
     pointer-events: none;
     opacity: 0.6;
 }
-#heart4{
+
+#heart4 {
     pointer-events: none;
     opacity: 0.8;
 }
