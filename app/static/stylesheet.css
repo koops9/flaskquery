@@ -10,6 +10,9 @@
     padding-top: 20px;
     list-style: none;
 }
+.divider img {
+    width: 100%;
+}
 
 .form {
     max-width: 500px;
@@ -28,11 +31,13 @@ h2 {
 .page-header {
     display: flex;
     border: none;
+    margin: 0 auto;
 }
 
 .infop {
     max-width: 600px;
     margin: 0 auto;
+    padding: 20px 0;
 }
 
 .participants {

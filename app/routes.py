@@ -9,8 +9,8 @@ def index():
 
     form = Form()
 
-    starttime = datetime(2020, 1, 27, 12, 00, 00)
-    endtime = datetime(2020, 6, 1, 23, 59, 00)
+    starttime = datetime(2020, 5, 5, 12, 00, 00)
+    endtime = datetime(2020, 8, 8, 23, 59, 00)
     nowtime = datetime.now()
 
     snapsilimit = 90
@@ -83,7 +83,7 @@ def index():
 
         db.session.add(sub)
         db.session.commit()
-        return redirect("https://www.otit.fi/snapsi16v/")
+        return redirect("https://snapsi.otit.fi/")
 
     elif form.is_submitted() and count > snapsilimit:
         flash('Ilmoittautuminen täynnä!')

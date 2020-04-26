@@ -12,11 +12,13 @@
                 <img src="./../static/img/rosegif.gif">
 
             </div>
+            <img src="./../static/img/glitter_stars.gif">
+
             <div class="infop">
                 <p>
                     Oulun Teekkarihenkiset Akateemikot sNAPsi ry täyttää syksyllä 16 vuotta.
                     Järjestämme tämän kunniaksi vuosijuhlat teemalla sweet sixteen.
-                    Vuosijuhlia juhlitaan 3.10.2020 kello 17.00 alkaen Johtenhovissa,
+                    Vuosijuhlia juhlitaan 3.10.2020 kello 17.00 alkaen Johteenhovissa,
                     osoitteessa Kansankentäntie 4, 90510 Oulu.</p>
                 <p>
                     Illalliskortin hinta on 75 euroa valmistuneelta (holiton 70€) ja 65 euroa opiskelijalta (holiton
@@ -27,12 +29,17 @@
                     Mikäli kysyttävää ilmenee, ottakaa yhteyttä snapsi@student.oulu.fi tai mira.s.huttunen@gmail.com.
                 </p>
                 <p>
-                    ilmoittautuminen auki {{ form.starttime }}
-                </p>
+                    {% if nowtime < starttime %}
+                        <div class="infop"><p>Ilmoittautuminen alkaa {{ starttime }}</p></div>
+                    {% elif starttime < nowtime < endtime %}
+                        <div class="infop"><p> Ilmoittautuminen päättyy {{ endtime }}</p></div>
+                    {% endif %}
             </div>
-            <img src="./../static/img/glitter_stars.gif">
+
         </div>
         {% if starttime < nowtime < endtime %}
+            <div class="divider"><img src="./../static/img/glitter_stars.gif"></div>
+
             <div class="formstyles">
                 <h2>Ilmoittautuminen</h2>
                 <form class="form form-horizontal" method="post" role="form">
@@ -64,26 +71,27 @@
                         {{ wtf.form_field(form.avec_specialneeds) }}
                         {{ wtf.form_field(form.avec_consent) }}
                     </div>
-
+                    <!--
                     {% for e in form.errors.items() %}
                         <p class="text-danger">{{ e }}</p>
                     {% endfor %}
+                    -->
 
                     {{ wtf.form_field(form.submit) }}
                     <img src="./../static/img/glitter_rose.gif">
 
                 </form>
+
             </div>
-        {% elif nowtime < starttime %}
-            <p>Ilmoittautuminen alkaa seuraavana ajankohtana {{ starttime }}</p>
+        {% elif nowtime > endtime %}
+            <div class="infop"><p>Ilmoittautuminen on päättynyt</p></div>
         {% else %}
-            <p>Ilmoittautuminen on päättynyt</p>
+            <p></p>
         {% endif %}
         <div class="participants">
-            <h2>Osallistujat</h2>
             <img src="./../static/img/glitter_stars.gif">
             <div class="col-sm-6">
-                <h3>Ilmoittautuneet: {{ counter }}/{{ snapsilimit }}</h3>
+                <h2>Ilmoittautuneet: {{ counter }}/{{ snapsilimit }}</h2>
                 {% for entry in entries %}
                     <p>{{ loop.index }}. {{ entry["name"][:30] }}
                         {% if entry["avec"] %}
